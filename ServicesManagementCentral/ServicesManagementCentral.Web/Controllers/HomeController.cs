@@ -1,62 +1,41 @@
-﻿using System.Web.Mvc;
+﻿using ServicesManagement.Web.DAL;
+using ServicesManagement.Web.Helpers;
+using ServicesManagement.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ServicesManagement.Web.Controllers
 {
     /// <summary>
     /// home controller
     /// </summary>
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        public HomeController():base(System.Web.HttpContext.Current)
-        {
-           
-        }
-
-        /// <summary>
-        /// home index view
-        /// </summary>
-        //public ActionResult Index()
-        //{
-        //    //if (Login == null)
-        //    //{
-        //    //    return RedirectToAction("Login", "Security");
-        //    //}
-
-        //    if (Login != null)
-        //    {
-        //        return RedirectToAction("Index", "Ordenes");
-        //    }
-
-        //    return RedirectToAction("Index", "CPanel");
-        //    //return RedirectToAction("Index", "Ordenes");
-        //    //  return View();
-        //}
+        public HomeController() { }
 
         public ActionResult Index()
         {
-            //if (Login == null)
-            //{
-            //    return RedirectToAction("Login", "Security");
-            //}
 
-            if (Login != null)
+            int OrderId = 0;
+
+            if (Request.QueryString["order"] != null)
             {
-
-                if (Login.Username.Trim().Equals("sysAdmin") && Login.Password.Trim().Equals("soriana2021"))
-                {
-                    return RedirectToAction("Callcenter", "Callcenter");
-                }
-                else
-                {
-                    Session["userFail"] = "Usuario o Password incorrecto";
-                    return RedirectToAction("Login", "Security");
-                }
+                OrderId = int.Parse(Request.QueryString["order"].ToString());
             }
-            return RedirectToAction("Login", "Security");
 
-            //return RedirectToAction("Index", "CPanel");
-            //return RedirectToAction("Index", "Ordenes");
-            //  return View();
+            var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
+
+            ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
+            ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
+            ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
+
+            return View();
         }
 
     }

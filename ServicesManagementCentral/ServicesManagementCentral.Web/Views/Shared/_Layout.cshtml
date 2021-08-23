@@ -18,44 +18,7 @@
     @Styles.Render("~/Content/custom")
 
     @Styles.Render("~/Content/jqueryExtensions/css")
-<script type="text/javascript">
-            var Api = {
-                Catalogo: {
-                    Logs: '@Url.Action("", "api/Logs")',
-                    Servicios: '@Url.Action("", "api/Servicios")',
-                    Servidores: '@Url.Action("", "api/Servidores")',
-                    MonActivLog: '@Url.Action("", "api/MonActivLog")',
-                    Queue: '@Url.Action("", "api/Queue")',
-                    LogsViewer: '@Url.Action("", "api/Logs")',
-                    Sistemas: '@Url.Action("", "api/Sistemas")',
-                    DllVersion: '@Url.Action("", "api/DllVersion")',
-                    Ubicacion: '@Url.Action("", "api/Ubicacion")',
-                    Articulo: '@Url.Action("", "api/Articulo")',
-                },
-                ConfigStore: '@Url.Action("", "api/ConfigStore")',
-                CPanel: '@Url.Action("", "api/CPanel")',
-               // Store: 'https://177.224.88.155:45456/api',
-            };
-            var Constant = {
-                WsStatus : {
-                    Stopped: 1, //ServiceControllerStatus.Stopped,
-                    StartPending: 2, // ServiceControllerStatus.StartPending,
-                    StopPending: 3, //ServiceControllerStatus.StopPending,
-                    Running: 4, //ServiceControllerStatus.Running,
-                    ContinuePending: 5,//ServiceControllerStatus.ContinuePending,
-                    PausePending: 6,//ServiceControllerStatus.PausePending,
-                    Paused: 7,//ServiceControllerStatus.Paused,
-                },
-                LogLevel: {
-                    Information: '@System.Diagnostics.EventLogEntryType.Information.ToString()',
-                    Warning: '@System.Diagnostics.EventLogEntryType.Warning.ToString()',
-                    Error: '@System.Diagnostics.EventLogEntryType.Error.ToString()',
-                }
-    };
 
-
-    var jsonImpersonate = '@Session["jsonImpersonate"]';
-</script>
 
 </head>
 <body>
