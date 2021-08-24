@@ -41,6 +41,7 @@ namespace ServicesManagement.Web.Models
         public string NameReceive { get; set; }
         public decimal Total { get; set; }
         public string MethodPayment { get; set; }
+        public int MethodPaymentID { get; set; }
         public decimal CashPay { get; set; }
         public decimal VouchersPay { get; set; }
         public string DeliveryAddress { get; set; }

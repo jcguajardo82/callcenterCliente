@@ -120,7 +120,16 @@
                         </span>
                         <h2>@detail.MethodPayment  </h2>
                         @*<p>Efectivo: $1603.7000 -- Vales:  $0.0000 </p>*@
+                        @switch (@detail.MethodPaymentID.ToString())
+                        {
 
+                            case "2":
+                            case "5":
+                            case "6":
+                                <p>Efectivo: $@detail.CashPay.ToString() -- Vales:  $@detail.VouchersPay.ToString() </p>
+                                break;
+
+                        }
                     </div>
                 </div>
                 <div class="ibox">
