@@ -23,10 +23,9 @@ namespace ServicesManagement.Web.Models
         public string ProductName { get; set; }
         public string Observations { get; set; }
         public decimal Quantity { get; set; }
-        public decimal Price { get; set; }
-      
-
-        
+        public decimal Total { get; set; }
+        public decimal PosPriceNormalSale { get; set; }
+        public decimal PosPriceOfferSale { get; set; }
     }
 
     public class Detail {

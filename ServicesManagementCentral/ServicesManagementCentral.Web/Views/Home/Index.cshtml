@@ -72,16 +72,20 @@
                                             </td>
 
                                             <td>
-                                                $@item.Price.ToString("0.00")
-                                                @* <s class="small text-muted">$230,00</s>*@
+                                                $@item.PosPriceOfferSale.ToString("0.00")
+                                                @if (item.PosPriceNormalSale > item.PosPriceOfferSale)
+                                                {
+                                                    <s class="small text-muted">$@item.PosPriceNormalSale.ToString("0.00")</s>
+                                                }
+
                                             </td>
                                             <td width="65">
 
-                                                <label class="form-control">@item.Quantity</label>
+                                                <label class="form-control">@item.Quantity.ToString("0.00")</label>
                                             </td>
                                             <td>
                                                 <h4>
-                                                    $@item.Price.ToString("0.00")
+                                                    $@item.Total.ToString("0.00")
                                                 </h4>
                                             </td>
                                         </tr>

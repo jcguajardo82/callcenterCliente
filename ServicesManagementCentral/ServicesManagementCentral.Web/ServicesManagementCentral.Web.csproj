@@ -188,8 +188,6 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Api\ApiBaseController.cs" />
-    <Compile Include="Controllers\Api\SecurityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DALServicesM.cs" />
     <Compile Include="DAL\DALCallCenter.cs" />
@@ -3413,8 +3411,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -3528,6 +3524,7 @@
     <Content Include="Views\Shared\Inspinia\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\Inspinia\_SkinConfig.cshtml" />
     <Content Include="Views\Shared\Inspinia\_TopNavbar.cshtml" />
+    <None Include="Properties\PublishProfiles\CallCenterCliente - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CallCenterDesa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\omsmercurio - Web Deploy.pubxml" />
