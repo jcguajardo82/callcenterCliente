@@ -26,6 +26,7 @@ namespace ServicesManagement.Web.Models
         public decimal Total { get; set; }
         public decimal PosPriceNormalSale { get; set; }
         public decimal PosPriceOfferSale { get; set; }
+        public string ArticuloFoto { get; set; }
     }
 
     public class Detail {
@@ -40,10 +41,11 @@ namespace ServicesManagement.Web.Models
         public string NameReceive { get; set; }
         public decimal Total { get; set; }
         public string MethodPayment { get; set; }
-
         public decimal CashPay { get; set; }
         public decimal VouchersPay { get; set; }
-                                                                                                                       
+        public string DeliveryAddress { get; set; }
+
+
 
     }
 }
