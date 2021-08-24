@@ -23,7 +23,6 @@ namespace ServicesManagement.Web.Controllers
         {
 
             int OrderId = 0;
-
             if (Request.QueryString["order"] != null)
             {
                 OrderId = int.Parse(Request.QueryString["order"].ToString());

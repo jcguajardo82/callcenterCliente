@@ -46,7 +46,5 @@ namespace ServicesManagement.Web.Models
         public decimal VouchersPay { get; set; }
         public string DeliveryAddress { get; set; }
 
-
-
     }
 }
