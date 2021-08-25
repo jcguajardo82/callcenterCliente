@@ -26,7 +26,7 @@ namespace ServicesManagement.Web.DAL
 
                 System.Collections.Hashtable parametros = new System.Collections.Hashtable
                 {
-                    { "@OrderNo", @OrderNo }
+                    { "@Id_cancelacion", @OrderNo }
                 };
 
 
