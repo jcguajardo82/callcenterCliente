@@ -26,13 +26,13 @@ namespace ServicesManagement.Web.Controllers
             if (Request.QueryString["order"] != null)
             {
                 OrderId = int.Parse(Request.QueryString["order"].ToString());
+
+                var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
+
+                ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
+                ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
+                ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
             }
-
-            var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
-
-            ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
-            ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
-            ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
 
             return View();
         }

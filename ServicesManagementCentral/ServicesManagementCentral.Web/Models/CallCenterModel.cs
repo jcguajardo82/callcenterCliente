@@ -11,6 +11,7 @@ namespace ServicesManagement.Web.Models
     }
 
     public class Order {
+        public string orderId { get; set; }
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
         public string OrderTime { get; set; }

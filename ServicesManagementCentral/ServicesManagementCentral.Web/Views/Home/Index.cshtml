@@ -16,12 +16,17 @@
 
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-sm-4 text-left">
+                        <div class="col-sm-2 text-left">
+                            <span>Folio Caso Cliente</span>
+                            <h2 class="text-navy">
+                                @order.orderId
+                            </h2>
+                        </div>
+                        <div class="col-sm-2 text-left">
                             <span>No. Orden</span>
                             <h2 class="text-navy">
                                 @order.OrderNo
                             </h2>
-
                         </div>
                         <div class="col-sm-4 text-left">
                             <span>Fecha de Solicitud:<h2 class="text-navy"> @order.OrderDate.ToString("dd/MMM/yyyy") @order.OrderDeliveryTime</h2></span><br>
@@ -39,7 +44,7 @@
                 <div class="ibox" style="padding-bottom:20px;">
                     <div class="ibox-title">
                         <span class="float-right">(<strong>@products.Count()</strong>) Artículos</span>
-                        <h5>Artículos RMA</h5>
+                        <h5>Artículos Folio</h5>
                     </div>
                     @foreach (Product item in products)
                     {
