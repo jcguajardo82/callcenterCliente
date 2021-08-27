@@ -39,12 +39,20 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-9">
                 <div class="ibox" style="padding-bottom:20px;">
                     <div class="ibox-title">
                         <span class="float-right">(<strong>@products.Count()</strong>) Artículos</span>
                         <h5>Artículos Folio</h5>
+                    </div>
+                    <div class="row" style="text-align:right;">
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary">Enviar Artículos</button>
+                        </div>
                     </div>
                     @foreach (Product item in products)
                     {
@@ -68,12 +76,12 @@
                                                     @item.Observations
                                                 </p>
                                                 @*<dl class="small m-b-none">
-                                                        <dt>Description lists</dt>
-                                                        <dd>A description list is perfect for defining terms.</dd>
-                                                    </dl>*@
+                                        <dt>Description lists</dt>
+                                        <dd>A description list is perfect for defining terms.</dd>
+                                    </dl>*@
 
                                                 <div class="m-t-sm">
-                                                    <input type="file" class="form-control-file">
+                                                    <input type="file" class="form-control-file"><button type="button" class="btn btn-light">Guardar Foto</button>
                                                 </div>
                                             </td>
 
@@ -100,8 +108,15 @@
                             </div>
                         </div>
                     }
-
-
+            
+                   
+                    <div class="row" style="text-align:right;">
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary">Enviar Artículos</button>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -160,9 +175,11 @@
                 </div>
             </div>
         </div>
+
     }
-    else { 
-    <h2>Lo sentimos, no se encontro información relacionada a la orden solicitada.</h2>
+    else
+    {
+        <h2>Lo sentimos, no se encontro información relacionada a la orden solicitada.</h2>
     }
 
 }
