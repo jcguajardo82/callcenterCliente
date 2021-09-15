@@ -13,6 +13,7 @@ using RestSharp;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.IO;
+using System.Text;
 
 namespace ServicesManagement.Web.Controllers
 {
@@ -40,9 +41,11 @@ namespace ServicesManagement.Web.Controllers
                     ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
                 }
             }
+            ViewBag.OrderId = OrderId;
 
             return View();
         }
+
         //upload imagenes
         [HttpPost]
         public ActionResult UploadFiles()
@@ -60,12 +63,18 @@ namespace ServicesManagement.Web.Controllers
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
                     {
-                        System.IO.Stream str; String strmContents;
-                        Int32 counter, strLen, strRead;
+                        System.IO.Stream str, str1; String strmContents;
+                        Int32 counter, strLen, strRead, strRead1;
                         // Create a Stream object.
                         str = Request.InputStream;
-                        StreamReader stream = new StreamReader(Request.InputStream);
-                        string x = stream.ReadToEnd();
+                        //----
+                        HttpPostedFileBase file = files[i];
+                        str1 = file.InputStream;
+                        byte[] strArr1 = new byte[Convert.ToInt32(file.ContentLength)];
+                        // Read stream into byte array.
+                        strRead1 = str1.Read(strArr1, 0, Convert.ToInt32(file.ContentLength));
+                        string base64String = Convert.ToBase64String(strArr1);
+                        //----                       
                         // Find number of bytes in stream.
                         strLen = Convert.ToInt32(str.Length);
                         // Create a byte array.
@@ -80,7 +89,7 @@ namespace ServicesManagement.Web.Controllers
                             strmContents = strmContents + strArr[counter].ToString();
                         }
 
-                        HttpPostedFileBase file = files[i];
+                        //HttpPostedFileBase file = files[i];
                         string fname;
 
                         // Checking for Internet Explorer  
@@ -98,7 +107,7 @@ namespace ServicesManagement.Web.Controllers
                         {
                             filename = fname,
                             mimetype = "image/png",
-                            content = strmContents
+                            content = base64String
                         }) ;
                     }
 
@@ -108,16 +117,20 @@ namespace ServicesManagement.Web.Controllers
 
                     json2 = JsonConvert.SerializeObject(LstArchivos);
 
-                    RestClient restClient = new RestClient(System.Configuration.ConfigurationManager.AppSettings["api_Upload_Files"]);
-                    RestRequest restRequest = new RestRequest("ordenrma");
-                    restRequest.RequestFormat = DataFormat.Json;
-                    restRequest.Method = Method.POST;
-                    restRequest.AddJsonBody(json2);
+                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                    //restRequest.AddParameter("folder", tipoFolder);
-                    var response = restClient.Execute(restRequest);
+                    Soriana.FWK.FmkTools.RestResponse r = Soriana.FWK.FmkTools.RestClient.RequestRest(Soriana.FWK.FmkTools.HttpVerb.POST, System.Configuration.ConfigurationSettings.AppSettings["api_SubirFotos"], "", json2);
 
-                    if (response.StatusDescription.Equals("Bad Request"))
+                    //RestClient restClient = new RestClient(System.Configuration.ConfigurationManager.AppSettings["api_SubirFotos"]);
+                    //RestRequest restRequest = new RestRequest("ordenrma");
+                    //restRequest.RequestFormat = DataFormat.Json;
+                    //restRequest.Method = Method.POST;
+                    //restRequest.AddJsonBody(json2);
+
+                    ////restRequest.AddParameter("folder", tipoFolder);
+                    //var response = restClient.Execute(restRequest);
+
+                    if (r.code != "00")
                     {
                         return Json("File Uploaded ERROR!");
                     } 

@@ -195,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Extension.cs" />
     <Compile Include="Inspinia\Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\Archivos.cs" />
     <Compile Include="Models\CallCenterModel.cs" />

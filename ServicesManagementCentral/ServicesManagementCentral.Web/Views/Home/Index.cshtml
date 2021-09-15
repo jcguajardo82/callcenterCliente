@@ -17,7 +17,7 @@
                 <div class="col-sm-2 text-left">
                     <span>Folio Caso Cliente</span>
                     <h2 class="text-navy">
-                        @order.orderId
+                        @ViewBag.OrderId
                     </h2>
                 </div>
                 <div class="col-sm-2 text-left">
@@ -25,7 +25,7 @@
                     <h2 class="text-navy">
                         @order.OrderNo
                     </h2>
-                    <input type="hidden" id="hddOrderNo" value="@order.OrderNo" />
+                    <input type="hidden" id="hddOrderNo" value="@ViewBag.OrderId" />
                 </div>
                 <div class="col-sm-4 text-left">
                     <span>Fecha de Solicitud:<h2 class="text-navy"> @order.OrderDate.ToString("dd/MMM/yyyy") @order.OrderDeliveryTime</h2></span><br>
