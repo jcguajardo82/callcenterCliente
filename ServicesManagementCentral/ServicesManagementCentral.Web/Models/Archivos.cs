@@ -7,8 +7,8 @@ namespace ServicesManagement.Web.Models
 {
     public class Archivos
     {
-        public string orderRMA { get; set; }
-        public List<LstArchivos> archivo { get; set; }
+        public string OrdenRma { get; set; }
+        public List<LstArchivos> archivos { get; set; }
         
     }
 

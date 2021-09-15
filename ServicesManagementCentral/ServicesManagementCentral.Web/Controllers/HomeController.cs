@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using RestSharp;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ServicesManagement.Web.Controllers
 {
@@ -52,7 +53,8 @@ namespace ServicesManagement.Web.Controllers
                 try
                 {
                     var LstArchivos = new Archivos();
-                    LstArchivos.orderRMA = Request.Form["OrdenRma"].ToString();
+                    LstArchivos.archivos = new List<LstArchivos>();
+                    LstArchivos.OrdenRma = Request.Form["OrdenRma"].ToString();
 
                     //  Get all files from Request object  
                     HttpFileCollectionBase files = Request.Files;
@@ -62,6 +64,8 @@ namespace ServicesManagement.Web.Controllers
                         Int32 counter, strLen, strRead;
                         // Create a Stream object.
                         str = Request.InputStream;
+                        StreamReader stream = new StreamReader(Request.InputStream);
+                        string x = stream.ReadToEnd();
                         // Find number of bytes in stream.
                         strLen = Convert.ToInt32(str.Length);
                         // Create a byte array.
@@ -90,7 +94,7 @@ namespace ServicesManagement.Web.Controllers
                             fname = file.FileName;
                         }
 
-                        LstArchivos.archivo.Add(new LstArchivos
+                        LstArchivos.archivos.Add(new LstArchivos
                         {
                             filename = fname,
                             mimetype = "image/png",
