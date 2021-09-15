@@ -58,8 +58,8 @@ namespace ServicesManagement.Web.Controllers
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
                     {
-                        System.IO.Stream str, str1; String strmContents;
-                        Int32 counter, strLen, strRead, strRead1;
+                        System.IO.Stream str; String strmContents;
+                        Int32 counter, strLen, strRead;
                         // Create a Stream object.
                         str = Request.InputStream;
                         // Find number of bytes in stream.
