@@ -58,6 +58,7 @@ namespace ServicesManagement.Web.Controllers
                     var LstArchivos = new Archivos();
                     LstArchivos.archivos = new List<LstArchivos>();
                     LstArchivos.OrdenRma = Request.Form["OrdenRma"].ToString();
+                    var nomArch = Request.Form["nomArch"].ToString();
 
                     //  Get all files from Request object  
                     HttpFileCollectionBase files = Request.Files;
@@ -102,6 +103,10 @@ namespace ServicesManagement.Web.Controllers
                         {
                             fname = file.FileName;
                         }
+
+                        DateTime dt = DateTime.Now;
+                        string dateTime = dt.ToString("yyyyMMddHHmmssfff");
+                        fname = string.Format("{0}_{1}_{2}", nomArch, LstArchivos.OrdenRma, dateTime);
 
                         LstArchivos.archivos.Add(new LstArchivos
                         {

@@ -204,11 +204,13 @@
 
                     // Create FormData object
                     var fileData = new FormData();
+                    var nomArch = "";
 
                     // Looping over all files and add it to FormData object
                     for (var i = 0; i < files.length; i++) {
                         fileData.append(files[i].name, files[i]);
                         var nameext = files[i].name.split(".");
+                        nomArch = nameext[0];
                         if (nameext[1] != "png" & nameext[1] != "jpg")
                         {
                             alert("Extensión no válida");
@@ -219,6 +221,7 @@
 
                     // Adding one more key to FormData object
                     fileData.append('OrdenRma', _hddOrderNo);
+                    fileData.append('nomArch', nomArch);
 
                     $.ajax({
                         // url: '/ManualesOperativos/UploadFiles',
