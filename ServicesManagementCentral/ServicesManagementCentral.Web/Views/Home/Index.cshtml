@@ -47,10 +47,11 @@
                                 <h5>Artículos Folio</h5>
                             </div>
                             <div class="row" style="text-align:right;">
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                 </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary">Enviar Artículos</button>
+                                <div class="col-md-3">
+                                    
+                                    <a href="~/pdf_ejemplo.pdf" download class="btn btn-primary">Descargar Guía</a>
                                 </div>
                             </div>
                             @{
@@ -65,7 +66,10 @@
                             <tr>
                                 <td width="90">
                                     <div class="cart-product-imitation">
+                                        @if (@item.ArticuloFoto != null)
+                                        {
                                         <img class="image" src="@item.ArticuloFoto" width=90 height=90>
+                                        }
                                     </div>
                                 </td>
                                 <td class="desc">
@@ -118,10 +122,10 @@
 
 
                             <div class="row" style="text-align:right;">
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                 </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary">Enviar Artículos</button>
+                                <div class="col-md-3">
+                                    <a href="~/pdf_ejemplo.pdf" download class="btn btn-primary">Descargar Guía</a>
                                 </div>
                             </div>
 
@@ -241,5 +245,43 @@
                     alert("FormData is not supported.");
                 }
         }
+
+        function Guia() {
+            var link = document.createElement('a');
+            link.href = "";
+            link.download = 'pdf_ejemplo.pdf';
+            link.dispatchEvent(new MouseEvent('click'));
+        }
+
+        function Guia1() {
+            //Set the File URL.
+            var fileName = "pdf_ejemplo.pdf";
+            var url = "~/" + fileName;
+
+            //Create XMLHTTP Request.
+            var req = new XMLHttpRequest();
+            req.open("GET", url, true);
+            req.responseType = "blob";
+            req.onload = function () {
+                //Convert the Byte Data to BLOB object.
+                var blob = new Blob([req.response], { type: "application/octetstream" });
+
+                //Check the Browser type and download the File.
+                var isIE = false || !!document.documentMode;
+                if (isIE) {
+                    window.navigator.msSaveBlob(blob, fileName);
+                } else {
+                    var url = window.URL || window.webkitURL;
+                    link = url.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.setAttribute("download", fileName);
+                    a.setAttribute("href", link);
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            };
+            req.send();
+        };
     </script>
 }
