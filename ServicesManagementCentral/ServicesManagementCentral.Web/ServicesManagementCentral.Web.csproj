@@ -3526,6 +3526,7 @@
     <Content Include="Views\Shared\Inspinia\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\Inspinia\_SkinConfig.cshtml" />
     <Content Include="Views\Shared\Inspinia\_TopNavbar.cshtml" />
+    <Content Include="pdf_ejemplo.pdf" />
     <None Include="Properties\PublishProfiles\CallCenterCliente - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CallCenterDesa - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
