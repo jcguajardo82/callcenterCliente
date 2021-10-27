@@ -142,9 +142,9 @@ namespace ServicesManagement.Web.Controllers
 
                     if (r.code != "00")
                     {
-                        return Json("File Uploaded ERROR!");
+                        return Json("ERROR al subir la evidencia!");
                     } 
-                    return Json("File Uploaded Successfully!");
+                    return Json("La evidencia fue grabada correctamente!");
                 }
                 catch (Exception ex)
                 {
