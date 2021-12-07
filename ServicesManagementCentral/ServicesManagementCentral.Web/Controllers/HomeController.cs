@@ -54,7 +54,6 @@ namespace ServicesManagement.Web.Controllers
             return View();
         }
 
-        [HttpPost]
         public FileResult GenerarGuiaDevolucion(string UeNo, int Product, int Pieces)
         {
             string tarifa = string.Empty, guia = string.Empty, servicioPaq = string.Empty, noguia = string.Empty, pdffile = string.Empty; 
@@ -105,11 +104,13 @@ namespace ServicesManagement.Web.Controllers
                             Product, item.Barcode, item.ProductName, User.Identity.Name);
                     }
 
-                    byte[] byteArray = Encoding.ASCII.GetBytes(pdffile);
-                    MemoryStream pdfStream = new MemoryStream();
-                    pdfStream.Write(byteArray, 0, byteArray.Length);
-                    pdfStream.Position = 0;
-                    return File(pdfStream, "application/pdf");
+                    //byte[] byteArray = Encoding.ASCII.GetBytes(pdffile);
+                    //MemoryStream pdfStream = new MemoryStream();
+                    //pdfStream.Write(byteArray, 0, byteArray.Length);
+                    //pdfStream.Position = 0;
+
+                    byte[] FileBytes = Convert.FromBase64String(pdffile);
+                    return File(FileBytes, "application/pdf","pdfprueba.pdf");
 
                     //var result = new { Success = true,  Message = "Se generó la guía de devolución", file = pdffile };
                     //return Json(result, JsonRequestBehavior.AllowGet);
