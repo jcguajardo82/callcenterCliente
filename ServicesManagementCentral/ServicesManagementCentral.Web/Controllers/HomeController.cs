@@ -31,14 +31,19 @@ namespace ServicesManagement.Web.Controllers
             if (Request.QueryString["order"] != null)
             {
                 OrderId = int.Parse(Request.QueryString["order"].ToString());
-
-                var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
-
-                if (ds.Tables[0].Rows.Count > 0)
+                //---
+                var esVIG = bool.Parse((DALCallCenter.verificacion_link_sUP(OrderId).Tables[0].Rows[0][0].ToString()));
+                //---
+                if (esVIG)
                 {
-                    ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
-                    ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
-                    ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
+                    var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
+                        ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
+                        ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
+                    }
                 }
             }
             ViewBag.OrderId = OrderId;
@@ -137,9 +142,9 @@ namespace ServicesManagement.Web.Controllers
 
                     if (r.code != "00")
                     {
-                        return Json("File Uploaded ERROR!");
+                        return Json("ERROR al subir la evidencia!");
                     } 
-                    return Json("File Uploaded Successfully!");
+                    return Json("La evidencia fue grabada correctamente!");
                 }
                 catch (Exception ex)
                 {
