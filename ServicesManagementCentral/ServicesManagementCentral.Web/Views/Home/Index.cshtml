@@ -26,6 +26,7 @@
                         @order.OrderNo
                     </h2>
                     <input type="hidden" id="hddOrderNo" value="@ViewBag.OrderId" />
+                    <input type="hidden" id="hddUeNo" value="@ViewBag.UeNo" />
                 </div>
                 <div class="col-sm-4 text-left">
                     <span>Fecha de Solicitud:<h2 class="text-navy"> @order.OrderDate.ToString("dd/MMM/yyyy") @order.OrderTime</h2></span><br>
@@ -45,14 +46,6 @@
                             <div class="ibox-title">
                                 <span class="float-right">(<strong>@products.Count()</strong>) Artículos</span>
                                 <h5>Artículos Folio</h5>
-                            </div>
-                            <div class="row" style="text-align:right;">
-                                <div class="col-md-9">
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <a href="~/pdf_ejemplo.pdf" download class="btn btn-primary">Descargar Guía</a>
-                                </div>
                             </div>
                             @{
                                 int contador = 1;
@@ -94,6 +87,13 @@
                                         @*<input id='@contador' otype="file" class="form-control-file">*@
                                         <button name = "btnUpload" type="button" class="btn btn-light" onclick="Upload(@contador)">Guardar Foto</button>
                                     </div>
+                                    <div class="row" style="text-align:right;">
+                                        <div class="col-md-9">
+                                        </div>
+                                        <div class="col-md-3">                                    
+                                            <button name="btnUpload" type="button" class="btn btn-primary" onclick="Guia('@order.UeNo', @item.ProductId, @item.Quantity)">Descargar Guía</button>
+                                        </div>
+                                    </div>
                                 </td>
 
                                 <td>
@@ -121,13 +121,13 @@
                             }
 
 
-                            <div class="row" style="text-align:right;">
+                            @*<div class="row" style="text-align:right;">
                                 <div class="col-md-9">
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="~/pdf_ejemplo.pdf" download class="btn btn-primary">Descargar Guía</a>
+                                    <button name="btnUpload" type="button" class="btn btn-primary" onclick="Guia()">Descargar Guía</button>
                                 </div>
-                            </div>
+                            </div>*@
 
                         </div>
 
@@ -246,11 +246,33 @@
                 }
         }
 
-        function Guia() {
-            var link = document.createElement('a');
-            link.href = "";
-            link.download = 'pdf_ejemplo.pdf';
-            link.dispatchEvent(new MouseEvent('click'));
+        function Guia(UeNo, Barcode, Quantity) {
+            window.location = window.location.origin + '/Home/GenerarGuiaDevolucion?UeNo=' + UeNo + "&Product=" + Barcode
+                + "&Pieces=" + Quantity;
+        }
+
+        function GuiaPDF(UeNo, Barcode, Quantity) {
+            $.ajax({
+                // url: '/ManualesOperativos/UploadFiles',
+                url: '@Url.Action("GenerarGuiaDevolucion", "Home")',
+                type: "POST",
+                data: {
+                    UeNo: UeNo,
+                    Product: Barcode,
+                    Pieces: Quantity
+                },
+                success: function (result) {
+                    //if (result.Success) {
+                    //    alert(result.Message);
+                    //}
+                    //else {
+                    //    alert(result.Message);
+                    //}
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
         }
 
         function Guia1() {
@@ -263,11 +285,8 @@
             req.open("GET", url, true);
             req.responseType = "blob";
             req.onload = function () {
-                //Convert the Byte Data to BLOB object.
-                var blob = new Blob([req.response], { type: "application/octetstream" });
-
-                //Check the Browser type and download the File.
-                var isIE = false || !!document.documentMode;
+                //Convert the Byte Data to BLOB object.                var blob = new Blob([req.response], { type: "application/octetstream" });
+                //Check the Browser type and download the File.                var isIE = false || !!document.documentMode;
                 if (isIE) {
                     window.navigator.msSaveBlob(blob, fileName);
                 } else {

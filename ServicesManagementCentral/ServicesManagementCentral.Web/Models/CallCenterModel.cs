@@ -11,6 +11,7 @@ namespace ServicesManagement.Web.Models
     }
 
     public class Order {
+        public string UeNo { get; set; }
         public string orderId { get; set; }
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
@@ -22,6 +23,8 @@ namespace ServicesManagement.Web.Models
     public class Product {
 
         public string ProductName { get; set; }
+        public string ProductId { get; set; }
+        public string Barcode { get; set; }
         public string Observations { get; set; }
         public decimal Quantity { get; set; }
         public decimal Total { get; set; }

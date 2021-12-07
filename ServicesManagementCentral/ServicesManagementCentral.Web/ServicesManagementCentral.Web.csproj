@@ -191,6 +191,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DALServicesM.cs" />
     <Compile Include="DAL\DALCallCenter.cs" />
+    <Compile Include="DAL\DALEmbarques.cs" />
     <Compile Include="Helpers\DataTableToModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,6 +200,10 @@
     <Compile Include="Inspinia\Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\Archivos.cs" />
     <Compile Include="Models\CallCenterModel.cs" />
+    <Compile Include="Models\EstafetaRequestModel.cs" />
+    <Compile Include="Models\LogytRequestModel.cs" />
+    <Compile Include="Models\TrackingInfo.cs" />
+    <Compile Include="Models\WeightByProducts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
