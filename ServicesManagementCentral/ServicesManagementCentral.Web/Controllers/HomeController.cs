@@ -40,13 +40,13 @@ namespace ServicesManagement.Web.Controllers
                 {
                     var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));               
                 
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
-                    //validar si tiene guía FOR
-                    ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
-                    ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
-                }
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
+                        //validar si tiene guía FOR
+                        ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
+                        ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
+                    }
                 }
             }
             ViewBag.OrderId = OrderId;
