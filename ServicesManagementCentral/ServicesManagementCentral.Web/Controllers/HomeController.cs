@@ -38,15 +38,15 @@ namespace ServicesManagement.Web.Controllers
                 //---
                 if (esVIG)
                 {
-                    var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));
-
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
-                        //validar si tiene guía FOR
-                        ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
-                        ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
-                    }
+                    var ds = (DALCallCenter.OrderFacts_ArticulosRMA(OrderId));               
+                
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    ViewBag.Order = DataTableToModel.ConvertTo<Order>(ds.Tables[0]).FirstOrDefault();
+                    //validar si tiene guía FOR
+                    ViewBag.Products = DataTableToModel.ConvertTo<Product>(ds.Tables[1]);
+                    ViewBag.Detail = DataTableToModel.ConvertTo<Detail>(ds.Tables[2]).FirstOrDefault();
+                }
                 }
             }
             ViewBag.OrderId = OrderId;
@@ -64,6 +64,7 @@ namespace ServicesManagement.Web.Controllers
                 List<TrackingInfo> lstTrackingInfo = DataTableToModel.ConvertTo<TrackingInfo>(ds.Tables[0]);
                 if (lstTrackingInfo.Count > 0)
                 {
+                    //[upCorpOms_Cns_UeNoTrackingInfoExist]
                     foreach (var item in lstTrackingInfo)
                     {
                         #region Guias
@@ -85,46 +86,43 @@ namespace ServicesManagement.Web.Controllers
 
                         servicioPaq = item.TrackingServiceName; //esta variable sera dinamica
 
-                        //if (item.TrackingServiceName.Equals("Logyt-Estafeta"))
-                        //{
-                        //    guia = CreateGuiaLogyt(UeNo, item.OrderNo, peso, type);
-                        //}
+                        DataSet TiE = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo);
+                        string TipoSeguimiento = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["TrackingType"].ToString();
+                        if (TipoSeguimiento != "DEVOLUCION")
+                        {
+
+                            string GuiaEstatus = "CREADA";
+
+                            var cabeceraGuia = DALEmbarques.upCorpOms_Ins_UeNoTracking(UeNo, item.OrderNo, FolioDisp, "DEVOLUCION",
+                            item.PackageType, item.PackageLength, item.PackageWidth, item.PackageHeight, item.PackageWeight,
+                            User.Identity.Name, servicioPaq, guia.Split(',')[0], guia.Split(',')[1], GuiaEstatus, null).Tables[0].Rows[0][0];
+
+                            #endregion
+                            DALEmbarques.upCorpOms_Ins_UeNoTrackingDetail(UeNo, item.OrderNo, FolioDisp, "DEVOLUCION",
+                                Product, item.Barcode, item.ProductName, User.Identity.Name);
+                        }
                         //else
                         //{
-                        //    guia = CreateGuiaEstafeta(UeNo, item.OrderNo, peso, type);
+                        //    noguia = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["IdTrackingService"].ToString();
+                        //    //Convert.ToBase64String((byte[])(item["FotoURL"]))
+                        //    byte[] data = (byte[])(DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["pdf"]);
+                        //    pdffile = Convert.ToBase64String(data);
                         //}
-                        string GuiaEstatus = "CREADA";
-
-                        var cabeceraGuia = DALEmbarques.upCorpOms_Ins_UeNoTracking(UeNo, item.OrderNo, FolioDisp, "DEVOLUCION",
-                        item.PackageType, item.PackageLength, item.PackageWidth, item.PackageHeight, item.PackageWeight,
-                        User.Identity.Name, servicioPaq, guia.Split(',')[0], guia.Split(',')[1], GuiaEstatus, null).Tables[0].Rows[0][0];
-
-                        #endregion
-                        DALEmbarques.upCorpOms_Ins_UeNoTrackingDetail(UeNo, item.OrderNo, FolioDisp, "DEVOLUCION",
-                            Product, item.Barcode, item.ProductName, User.Identity.Name);
                     }
-
-                    //byte[] byteArray = Encoding.ASCII.GetBytes(pdffile);
-                    //MemoryStream pdfStream = new MemoryStream();
-                    //pdfStream.Write(byteArray, 0, byteArray.Length);
-                    //pdfStream.Position = 0;
-
                     byte[] FileBytes = Convert.FromBase64String(pdffile);
-                    return File(FileBytes, "application/pdf","pdfprueba.pdf");
-
-                    //var result = new { Success = true,  Message = "Se generó la guía de devolución", file = pdffile };
-                    //return Json(result, JsonRequestBehavior.AllowGet);
+                    return File(FileBytes, "application/pdf", "GuiaDevolucion" + Product.ToString() + ".pdf");
                 }
                 else
                 {
-                    var result = new { Success = false, Message = "No se encontraron registros para la Orden/Producto." };
-                    return File("", "application/pdf");
+                    string name = "NoSeEncontroInfo.txt";
+                    return File(name, "text/plain");
                 }
             }
             catch (Exception x)
             {
                 var result = new { Success = false, Message = x.Message };
                 return File("", "application/pdf");
+                //return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
         private decimal PesoCalculado(int Product, decimal Quantity)
