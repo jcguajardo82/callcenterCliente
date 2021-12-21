@@ -113,9 +113,15 @@ namespace ServicesManagement.Web.Controllers
                     return File(FileBytes, "application/pdf", "GuiaDevolucion" + Product.ToString() + ".pdf");
                 }
                 else
-                {
+                {    // Create a new file     
+                   
                     string name = "NoSeEncontroInfo.txt";
-                    return File(name, "text/plain");
+                    var string_with_your_data = "No se ha encontrado informacion del TrackingInfo";
+
+                    var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
+                    var stream = new MemoryStream(byteArray);
+
+                    return File(stream, "text/plain", name);
                 }
             }
             catch (Exception x)
