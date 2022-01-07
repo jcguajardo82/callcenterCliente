@@ -3401,6 +3401,7 @@
     <Content Include="Content\Scripts\utils\utils.js" />
     <Content Include="Content\site.css" />
     <Content Include="Content\site.scss" />
+    <Content Include="Controllers\NoSeEncontroInfo.txt" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
