@@ -87,7 +87,14 @@ namespace ServicesManagement.Web.Controllers
                         servicioPaq = item.TrackingServiceName; //esta variable sera dinamica
 
                         DataSet TiE = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo);
-                        string TipoSeguimiento = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["TrackingType"].ToString();
+                        string TipoSeguimiento = "NO DEVOLUCION";
+
+                        if (TiE.Tables.Count > 0)
+                        {
+                            TipoSeguimiento = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["TrackingType"].ToString();
+
+                        }
+
                         if (TipoSeguimiento != "DEVOLUCION")
                         {
 
@@ -126,9 +133,13 @@ namespace ServicesManagement.Web.Controllers
             }
             catch (Exception x)
             {
-                var result = new { Success = false, Message = x.Message };
-                return File("", "application/pdf");
-                //return Json(result, JsonRequestBehavior.AllowGet);
+                string name = "SeRegistroUnError.txt";
+                var string_with_your_data = "No se ha encontrado informacion del TrackingInfo. Error en BD.";
+
+                var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
+                var stream = new MemoryStream(byteArray);
+
+                return File(stream, "text/plain", name);
             }
         }
         private decimal PesoCalculado(int Product, decimal Quantity)

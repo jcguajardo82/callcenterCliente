@@ -3401,7 +3401,6 @@
     <Content Include="Content\Scripts\utils\utils.js" />
     <Content Include="Content\site.css" />
     <Content Include="Content\site.scss" />
-    <Content Include="Controllers\NoSeEncontroInfo.txt" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3535,6 +3534,7 @@
     <Content Include="pdf_ejemplo.pdf" />
     <None Include="Properties\PublishProfiles\CallCenterCliente - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CallCenterDesa - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CallCenterDesa - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\omsmercurio - Web Deploy.pubxml" />
     <Content Include="Views\Shared\Empty.cshtml" />
