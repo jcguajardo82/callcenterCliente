@@ -89,7 +89,7 @@ namespace ServicesManagement.Web.Controllers
                         DataSet TiE = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo);
                         string TipoSeguimiento = "NO DEVOLUCION";
 
-                        if (TiE.Tables.Count > 0)
+                        if (TiE.Tables[0].Rows.Count > 0)
                         {
                             TipoSeguimiento = DALEmbarques.upCorpOms_Cns_UeNoTrackingInfoExist(UeNo).Tables[0].Rows[0]["TrackingType"].ToString();
 

@@ -216,7 +216,7 @@
                         fileData.append(files[i].name, files[i]);
                         var nameext = files[i].name.split(".");
                         nomArch = nameext[0];
-                        if (nameext[1] != "png" & nameext[1] != "jpg")
+                        if (nameext[1].toLowerCase() != "png" & nameext[1].toLowerCase() != "jpg" & nameext[1].toLowerCase() != "jpeg")
                         {
                             alert("Extensión no válida");
                             return;
