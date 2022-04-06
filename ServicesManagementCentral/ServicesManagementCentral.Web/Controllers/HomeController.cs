@@ -432,11 +432,11 @@ namespace ServicesManagement.Web.Controllers
                         strRead = str.Read(strArr, 0, strLen);
 
                         // Convert byte array to a text string.
-                        strmContents = "";
-                        for (counter = 0; counter < strLen; counter++)
-                        {
-                            strmContents = strmContents + strArr[counter].ToString();
-                        }
+                        //strmContents = "";
+                        //for (counter = 0; counter < strLen; counter++)
+                        //{
+                        //    strmContents = strmContents + strArr[counter].ToString();
+                        //}
 
                         //HttpPostedFileBase file = files[i];
                         string fname;
